@@ -15,6 +15,20 @@ export const getAllUsers = createAsyncThunk(
     }
   },
 );
+//delete user
+export const deleteUser = createAsyncThunk(
+  'user/deleteUser',
+  async (id, thunkAPI) => {
+    try {
+      const res = await API.delete(`/user/delete/${id}`);
+      return res.data;
+    } catch (error) {
+      const message =
+        error?.response?.data?.message || error.message || 'delete user error';
+      return thunkAPI.rejectWithValue(message);
+    }
+  },
+);
 //get user Details
 export const getUserDetails = createAsyncThunk(
   'user/getUserDetails',

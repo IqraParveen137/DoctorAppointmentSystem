@@ -14,6 +14,16 @@ export const userSignup = async (req, res) => {
         message: 'please provide all fields',
       });
     }
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&-])[A-Za-z\d@$!%*?&-]+$/;
+
+    if (!passwordRegex.test(password)) {
+      return res.status(400).send({
+        success: false,
+        message:
+          'Password must contain uppercase, lowercase, number and special character',
+      });
+    }
     //hashing
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -283,6 +293,31 @@ export const getLoginUser = async (req, res) => {
     res.status(500).send({
       success: false,
       message: 'something went wrong in getting all users',
+      error,
+    });
+  }
+};
+//delete user
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(404).send({
+        success: false,
+        message: 'Please add user id',
+      });
+    }
+    const user = await doctorModel.findByIdAndDelete(id);
+    res.status(200).send({
+      success: true,
+      message: 'Deleted Seccussfully',
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: 'Error in deleting user details',
       error,
     });
   }

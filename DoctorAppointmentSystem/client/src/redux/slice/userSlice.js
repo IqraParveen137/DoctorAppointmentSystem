@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getUserData, loadToken, login } from '../actions/authActions';
-import { getAllUsers, getStats, getUserDetails } from '../actions/userActions';
+import {
+  deleteUser,
+  getAllUsers,
+  getStats,
+  getUserDetails,
+} from '../actions/userActions';
 const userSlice = createSlice({
   name: 'user',
   initialState: {
@@ -47,6 +52,20 @@ const userSlice = createSlice({
         state.appointments = action.payload.appointments;
       })
       .addCase(getUserDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.payload;
+      })
+      //delete User
+      .addCase(deleteUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteUser.fulfilled, (state) => {
+        state.loading = false;
+        state.success = true;
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
         state.loading = false;
         state.success = false;
         state.error = action.payload;

@@ -5,7 +5,14 @@ import doctorModel from '../models/doctorModel.js';
 export const bookAppointment = async (req, res) => {
   try {
     const { userId, doctorId, amount, slotDate, slotTime } = req.body;
-    if (!userId || !doctorId || !amount || !slotDate || !slotTime) {
+    // Check patient login
+    if (!userId) {
+      return res.status(401).send({
+        success: false,
+        message: 'Please Login as a patient to book appointment',
+      });
+    }
+    if (!doctorId || !amount || !slotDate || !slotTime) {
       return res.status(400).send({
         success: false,
         message: 'please provide all fields',

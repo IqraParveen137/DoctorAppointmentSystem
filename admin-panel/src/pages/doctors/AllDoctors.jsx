@@ -21,7 +21,7 @@ const AllDoctors = () => {
           className='btn btn-primary'
           onClick={() => navigate('/add-doctor')}
         >
-          +ADD DOCTOR
+          +Add Doctor
         </button>
       </div>
       <div>

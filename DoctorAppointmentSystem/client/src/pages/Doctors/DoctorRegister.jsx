@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import API from '../../Api/API';
 import { NavLink, useNavigate } from 'react-router';
 
@@ -18,7 +19,22 @@ const DoctorRegister = () => {
   const [image, setImage] = useState(null);
   const handleRegister = async (e) => {
     e.preventDefault();
-
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !image ||
+      !speciality ||
+      !experience ||
+      !degree ||
+      !fees ||
+      !gender ||
+      !address ||
+      !phone ||
+      !dob
+    ) {
+      return toast.error('Please Provide All Fields');
+    }
     try {
       const formData = new FormData();
 
@@ -64,6 +80,7 @@ const DoctorRegister = () => {
       <input
         className='form-control mb-2'
         placeholder='Email'
+        type='email'
         onChange={(e) => setEmail(e.target.value)}
       />
 
@@ -74,34 +91,83 @@ const DoctorRegister = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <input
+      <select
         className='form-control mb-2'
-        placeholder='Degree'
+        value={degree}
         onChange={(e) => setDegree(e.target.value)}
-      />
+      >
+        <option value=''>Select Degree</option>
+        <option value='MBBS'>MBBS</option>
+        <option value='BDS'>BDS</option>
+        <option value='FCPS'>FCPS</option>
+        <option value='MD'>MD</option>
+        <option value='MS'>MS</option>
+        <option value='MRCP'>MRCP</option>
+        <option value='FRCS'>FRCS</option>
+        <option value='DPT'>DPT</option>
+        <option value='Pharm-D'>Pharm-D</option>
+        <option value='MPhil'>MPhil</option>
+        <option value='Other'>Other</option>
+      </select>
 
-      <input
+      <select
         className='form-control mb-2'
-        placeholder='Speciality'
+        value={speciality}
         onChange={(e) => setSpeciality(e.target.value)}
+      >
+        <option value=''>Select Speciality</option>
+        <option>General Physician</option>
+        <option>Cardiologist</option>
+        <option>Dermatologist</option>
+        <option>Dentist</option>
+        <option>Gynecologist</option>
+        <option>Pediatrician</option>
+        <option>Neurologist</option>
+        <option>Psychiatrist</option>
+        <option>Orthopedic</option>
+        <option>Ophthalmologist</option>
+        <option>ENT Specialist</option>
+        <option>Urologist</option>
+        <option>Gastroenterologist</option>
+        <option>Pulmonologist</option>
+        <option>Endocrinologist</option>
+        <option>Nephrologist</option>
+        <option>Oncologist</option>
+        <option>General Surgeon</option>
+        <option>Radiologist</option>
+        <option>Anesthesiologist</option>
+      </select>
+
+      <input
+        className='form-control mb-2'
+        placeholder='Experience in years'
+        value={experience}
+        onChange={(e) => {
+          if (/^\d{0,2}$/.test(e.target.value)) {
+            setExperience(e.target.value);
+          }
+        }}
       />
 
       <input
         className='form-control mb-2'
-        placeholder='Experience'
-        onChange={(e) => setExperience(e.target.value)}
+        placeholder='Fee in Rs'
+        value={fees}
+        onChange={(e) => {
+          if (/^\d{0,4}$/.test(e.target.value)) {
+            setFees(e.target.value);
+          }
+        }}
       />
-
       <input
         className='form-control mb-2'
-        placeholder='Fees'
-        onChange={(e) => setFees(e.target.value)}
-      />
-
-      <input
-        className='form-control mb-2'
-        placeholder='Phone'
-        onChange={(e) => setPhone(e.target.value)}
+        placeholder='phone'
+        value={phone}
+        onChange={(e) => {
+          if (/^\d{0,11}$/.test(e.target.value)) {
+            setP(e.target.value);
+          }
+        }}
       />
 
       <input

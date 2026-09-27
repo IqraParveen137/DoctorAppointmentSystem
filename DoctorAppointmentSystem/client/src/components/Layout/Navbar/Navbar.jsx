@@ -8,12 +8,12 @@ const Navbar = () => {
     <>
       <div className='navbar-container sticky-top'>
         <div className='row'>
-          <div className='col-md-2'>
+          <div className='col-md-1'>
             <NavLink to='/'>
               <img src={Logo} alt='logo' className='brand-logo' />
             </NavLink>
           </div>
-          <div className='col-md-10'>
+          <div className='col-md-11'>
             <Topbar />
             {/*Main menu*/}
             <Navmenu />

@@ -1,16 +1,36 @@
 import React, { useEffect } from 'react';
 import Layout from '../../components/Layout/Layout';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails } from '../../redux/actions/userActions';
+import { deleteUser, getUserDetails } from '../../redux/actions/userActions';
 
 const UserDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getUserDetails(id));
   }, [dispatch, id]);
-  const { user, appointments } = useSelector((state) => state.user);
+  const { user, success, error, appointments } = useSelector(
+    (state) => state.user,
+  );
+  //delete user
+  const handleDelete = () => {
+    const confirm = window.confirm(
+      'Are you sure you want to delete this user?',
+    );
+    if (confirm) {
+      dispatch(deleteUser(id));
+    }
+    if (success) {
+      toast.success('User Deleted!');
+      navigate('/all-users');
+    }
+    if (error) {
+      toast.error(error);
+    }
+  };
   return (
     <Layout>
       <div className='row d-flex align-item-center bg-light mt-3 p-3'>
@@ -31,6 +51,12 @@ const UserDetails = () => {
           <h4>EMAIL:{user?.email}</h4>
           <h4>PHONE:{user?.phone || 'NA'}</h4>
           <h4>ADDRESS:{user?.address || 'NA'}</h4>
+          <button
+            className='btn btn-danger'
+            onClick={() => handleDelete(user?._id)}
+          >
+            Delete User
+          </button>
         </div>
       </div>
       <div>

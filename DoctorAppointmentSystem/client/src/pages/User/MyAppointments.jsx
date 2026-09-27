@@ -48,7 +48,7 @@ const MyAppointments = () => {
           </tr>
         </thead>
         <tbody>
-          {appointments?.length > 0 &&
+          {appointments?.length > 0 ? (
             appointments?.map((a, i) => (
               <tr key={i + 1}>
                 <td>{i + 1}</td>
@@ -72,7 +72,10 @@ const MyAppointments = () => {
                   )}
                 </td>
               </tr>
-            ))}
+            ))
+          ) : (
+            <h1>No Upcomming Appointments</h1>
+          )}
         </tbody>
       </table>
     </>

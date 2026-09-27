@@ -179,7 +179,6 @@ const doctorSlice = createSlice({
       .addCase(deleteDoctor.fulfilled, (state) => {
         state.loading = false;
         state.success = true;
-        //state.doctor = action.payload.doctor;
       })
       .addCase(deleteDoctor.rejected, (state, action) => {
         state.loading = false;

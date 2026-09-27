@@ -77,20 +77,70 @@ const AddDoctor = () => {
       </div>
       <div className='w-75'>
         <InputForm label={'Name'} value={name} setValue={setName} />
-        <InputForm label={'Email'} value={email} setValue={setEmail} />
-        <InputForm label={'Password'} value={password} setValue={setPassword} />
+        <InputForm
+          label='Email'
+          value={email}
+          setValue={setEmail}
+          type='email'
+        />
+        <InputForm
+          label={'Password'}
+          value={password}
+          setValue={setPassword}
+          type='password'
+        />
         <InputSelect
           label={'Speciality'}
           value={speciality}
           setValue={setSpeciality}
-          options={['Select Speciality', 'Genral', 'dental', 'Mental', 'Eye']}
+          options={[
+            'Select Speciality',
+            'General Physician',
+            'Cardiologist',
+            'Dermatologist',
+            'Dentist',
+            'Gynecologist',
+            'Pediatrician',
+            'Neurologist',
+            'Psychiatrist',
+            'Orthopedic',
+            'Ophthalmologist',
+            'ENT Specialist',
+            'Urologist',
+            'Gastroenterologist',
+            'Pulmonologist',
+            'Endocrinologist',
+            'Nephrologist',
+            'Oncologist',
+            'General Surgeon',
+            'Radiologist',
+            'Anesthesiologist',
+          ]}
         />
         <InputForm
           label={'Experience'}
           value={experience}
           setValue={setExperience}
         />
-        <InputForm label={'Degree'} value={degree} setValue={setDegree} />
+        <InputSelect
+          label={'Degree'}
+          value={degree}
+          setValue={setDegree}
+          options={[
+            'Select Degree',
+            'MBBS',
+            'BDS',
+            'FCPS',
+            'MD',
+            'MS',
+            'MRCP',
+            'FRCS',
+            'DPT',
+            'Pharma-D',
+            'MPhil',
+            'Other',
+          ]}
+        />
         <InputForm label={'Fees'} value={fees} setValue={setFees} />
         <InputSelect
           label={'Gender'}
